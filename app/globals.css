@@ -116,8 +116,20 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+  /* Hide scrollbar for TV scroll content */
+  [data-tv-scroll]::-webkit-scrollbar {
+    display: none;
+  }
+  [data-tv-scroll] {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 @keyframes scrollUp {

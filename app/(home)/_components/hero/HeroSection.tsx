@@ -3,10 +3,10 @@ import TvBox from "./_components/TvBox";
 
 const HeroSection = () => {
   return (
-    <section className="w-full py-16  ">
+    <section className="w-full py-16" data-section="hero">
       <div className="container mx-auto flex flex-col md:flex-row items-center gap-12 px-4">
         {/* Left Side: Header, Title, Sub Title, Paragraph */}
-        <div className="w-4/8 text-left">
+        <div className="w-4/8 text-left" data-hero-content>
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
             Welcome to <span className="text-primary">Zebra </span>
           </h1>
@@ -30,9 +30,9 @@ const HeroSection = () => {
           </div>
         </div>
         {/* Right Side: Image and Visuals */}
-        <div className="flex-1 flex justify-center relative min-h-[500px]">
+        <div className="flex-1 flex justify-center relative min-h-[500px]" data-tv-box-wrapper>
           {/* light blob blur effect - covers entire right side */}
-          <div className="absolute inset-0 -inset-x-20 -inset-y-10  pointer-events-none">
+          <div className="absolute inset-0 -inset-x-20 -inset-y-10  pointer-events-none" data-hero-content>
             {/* Purple blob - top left area */}
             <div
               className="absolute -top-20 -left-20 w-[700px] h-[700px] rounded-full"
@@ -70,7 +70,7 @@ const HeroSection = () => {
               }}
             />
           </div>
-          <div className="w-fit h-fit scale-125 mt-16">
+          <div className="w-fit h-fit scale-125 mt-16" data-tv-box>
             <TvBox />
           </div>
         </div>

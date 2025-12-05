@@ -85,7 +85,7 @@ const TvBox = () => {
               />
             )}
             {/* Scroll container for content */}
-            <div className="w-full h-full overflow-y-auto">
+            <div className="w-full h-full overflow-y-auto" data-tv-scroll>
               <Image
                 src="/images/entity/tv-screen.webp"
                 alt="tv screen"
@@ -93,6 +93,18 @@ const TvBox = () => {
                 height={1500}
                 className="w-full h-auto rounded-md"
               />
+              {/* Additional content for scrolling */}
+             {/*  <div className="p-4 bg-linear-to-b from-transparent to-black/20">
+                <div className="space-y-4 text-white/90">
+                  <h3 className="text-xl font-bold">Amazing Content</h3>
+                  <p className="text-sm">Scroll through endless entertainment</p>
+                  <div className="grid grid-cols-2 gap-2 mt-4">
+                    {[1, 2, 3, 4, 5, 6].map((item) => (
+                      <div key={item} className="h-24 bg-white/10 rounded-lg" />
+                    ))}
+                  </div>
+                </div>
+              </div> */}
             </div>
           </div>
         </div>

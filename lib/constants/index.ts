@@ -8,7 +8,7 @@ export const FEATURES = [
         description: "Never lose track of what you've watched. Automatically tracks your viewing history across all devices.",
       },
       {
-        title: "Pick Up Where You Left Off",
+        title: "Pick Up Where You  Left Off",
         description: "Resume any show or movie exactly where you stopped, even if you switch between devices.",
       },
       {
@@ -51,6 +51,11 @@ export const FEATURES = [
         description: "Automatically see what's available in each playlist with organized content views.",
       },
     ],
+    image: "/images/entity/parts/continue-watch.webp",
+    calloutDotPosition: {
+      x: 200,
+      y: 180,
+    },
   },
   {
     category: "Premium Playback",
@@ -89,6 +94,11 @@ export const FEATURES = [
         description: "Smart buffering predicts and pre-loads content to prevent freezing and stuttering.",
       },
     ],
+    image: "/images/entity/parts/continue-watch.webp",
+    calloutDotPosition: {
+      x: 150,
+      y: 220,
+    },
   },
   {
     category: "Effortless Discovery",

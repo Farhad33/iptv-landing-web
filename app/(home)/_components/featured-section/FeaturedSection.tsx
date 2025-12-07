@@ -1,19 +1,39 @@
 "use client";
 
 import { FEATURES } from "@/lib/constants";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const FeaturedSection = () => {
   const [activeFeature, setActiveFeature] = useState<number>(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const activeFeatureRef = useRef<number>(0);
+
+  // Expose setActiveFeature to window for GSAP to control
+  useEffect(() => {
+    if (typeof window !== "undefined" && sectionRef.current) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).setFeaturedActiveFeature = (index: number) => {
+        setActiveFeature(index);
+        activeFeatureRef.current = index;
+      };
+    }
+    return () => {
+      if (typeof window !== "undefined") {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        delete (window as any).setFeaturedActiveFeature;
+      }
+    };
+  }, []);
 
   return (
     <section
-      className="w-full grid grid-cols-5 py-16 overflow-hidden container mx-auto"
+      ref={sectionRef}
+      className="w-full grid grid-cols-5 py-16  container mx-auto"
       data-section="featured"
     >
-      <div className="col-span-2">
+      <div className="col-span-2" data-featured-content>
         <AnimatePresence mode="wait">
           <motion.div
             key={activeFeature}
@@ -29,16 +49,94 @@ const FeaturedSection = () => {
               {FEATURES[activeFeature].description}
             </p>
 
-            <ul className="list-disc list-inside">
-              {FEATURES[activeFeature].features.map((feature) => (
-                <li
-                  key={feature.title}
-                  className="text-lg text-muted-foreground"
-                >
-                  {feature.title}
-                </li>
+            <div className="relative space-y-0">
+              {/* Vertical connecting line with animation */}
+              <motion.div 
+                className="absolute left-4 top-0 w-[2px] bg-primary origin-top"
+                initial={{ height: 0 }}
+                animate={{ height: "100%" }}
+                transition={{ 
+                  duration: 0.8,
+                  ease: "easeInOut",
+                  delay: 0.2
+                }}
+              />
+
+              {FEATURES[activeFeature].features.map((feature, index) => (
+                <div key={feature.title} className="relative pb-12 last:pb-0">
+                  {/* Dot on vertical line */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ 
+                      duration: 0.3,
+                      delay: 0.3 + index * 0.3,
+                      ease: "backOut"
+                    }}
+                    className="absolute left-px top-0 flex items-center justify-center"
+                  >
+                    <span className="flex w-8 h-8 items-center justify-center border border-primary rounded-full bg-background">
+                      <span className="flex w-6 h-6 items-center justify-center border border-primary rounded-full">
+                        <span className="block w-2 h-2 bg-primary rounded-full"></span>
+                      </span>
+                    </span>
+                  </motion.div>
+
+                  {/* Horizontal line from dot to title with width animation */}
+                  <motion.div 
+                    className="absolute opacity-0! left-8 top-3 h-[2px] bg-primary origin-left"
+                    initial={{ width: 0 }}
+                    animate={{ width: "2rem" }}
+                    transition={{ 
+                      duration: 0.4,
+                      delay: 0.5 + index * 0.3,
+                      ease: "easeOut"
+                    }}
+                  />
+
+                  {/* Title */}
+                  <motion.div 
+                    className="text-lg font-bold text-white ml-10"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ 
+                      duration: 0.3,
+                      delay: 0.7 + index * 0.3
+                    }}
+                  >
+                    {feature.title}
+                  </motion.div>
+
+                  {/* Description container */}
+                  <div className="ml-20 mt-10 relative">
+                    {/* Horizontal line to description with width animation */}
+                    <motion.div 
+                      className="absolute -left-16 top-5 h-[2px] rounded-full bg-primary origin-left"
+                      initial={{ width: 0 }}
+                      animate={{ width: "4rem" }}
+                      transition={{ 
+                        duration: 0.4,
+                        delay: 0.9 + index * 0.3,
+                        ease: "easeOut"
+                      }}
+                    />
+
+                    {/* Description */}
+                    <motion.p 
+                      className="text-sm text-muted-foreground ml-0 pl-2"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ 
+                        duration: 0.3,
+                        delay: 1.1 + index * 0.3
+                      }}
+                    >
+                      {feature.description}
+                    </motion.p>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -60,26 +158,17 @@ const FeaturedSection = () => {
 
               // Vertical carousel wheel effect - cards rotate in a vertical arc
               // Angle for vertical arc (0° = center, positive = above, negative = below)
-              const angle = offset *50; // Angle in degrees for vertical carousel
-              const radius = 180; // Radius of the carousel arc
+              const angle = offset * 1; // Angle in degrees for vertical carousel
+              const radius = 200; // Radius of the carousel arc
 
-              // Calculate position in vertical arc
-              // For vertical carousel, cards above center go up (negative Y), below go down (positive Y)
-              // angle is negative for cards above, positive for cards below
-              const yOffset = Math.sin((angle * Math.PI) / 180) * radius;
-              const xOffset =
-                (1 - Math.cos((angle * Math.PI) / 180)) * radius * 0.1; // Horizontal offset for depth
+              // Calculate vertical position for straight vertical path
+              // Cards will simply stack vertically by offset; no arc
+              const yOffset = offset * 100; // 80px per card spacing vertically
+              const xOffset = 0;
 
               // Scale based on distance and position in arc
               // Cards further from center are smaller
-              const scale = isActive
-                ? 1
-                : Math.max(
-                    0.75,
-                    1 -
-                      distance * 0.1 -
-                      Math.abs(Math.sin((angle * Math.PI) / 180)) * 0.08
-                  );
+              const scale = isActive ? 1 : Math.max(0.75, 1 - distance * 0.1);
 
               // Opacity based on distance
               const opacity = isActive ? 1 : Math.max(0.3, 1 - distance * 0.18);
@@ -95,7 +184,7 @@ const FeaturedSection = () => {
                   initial={false}
                   animate={{
                     x: xOffset,
-                    y: yOffset - 50,
+                    y: yOffset,
                     scale: scale,
                     opacity: opacity,
                     rotateX: rotateX,
@@ -108,8 +197,12 @@ const FeaturedSection = () => {
                     damping: 30,
                     mass: 0.9,
                   }}
-                  onClick={() => setActiveFeature(index)}
+                  onClick={() => {
+                    setActiveFeature(index);
+                    activeFeatureRef.current = index;
+                  }}
                   className={cn("absolute w-full cursor-pointer")}
+                  data-feature-index={index}
                   style={{
                     top: "0%",
                     left: "0%",
@@ -121,7 +214,7 @@ const FeaturedSection = () => {
                       ? {}
                       : {
                           scale: scale + 0.03,
-                          y: yOffset - 8 - 50,
+                          y: yOffset - 8,
                           rotateX: rotateX + (offset > 0 ? -2 : 2),
                         }
                   }

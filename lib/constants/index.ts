@@ -81,18 +81,7 @@ export const FEATURES = [
         title: "Adaptive Quality Streaming",
         description: "Automatically adjusts video quality based on your connection for uninterrupted viewing.",
       },
-      {
-        title: "Stream Resilience",
-        description: "Built-in recovery mechanisms keep your stream running smoothly even with network fluctuations.",
-      },
-      {
-        title: "Real-Time Feedback",
-        description: "See buffering status, quality changes, and connection health at a glance.",
-      },
-      {
-        title: "Pre-Loading Technology",
-        description: "Smart buffering predicts and pre-loads content to prevent freezing and stuttering.",
-      },
+    
     ],
     image: "/images/entity/parts/continue-watch.webp",
     calloutDotPosition: {
@@ -124,14 +113,7 @@ export const FEATURES = [
         title: "Advanced Filtering",
         description: "Narrow down content by genre, release year, director, cast, or language with sophisticated filters.",
       },
-      {
-        title: "Rich IMDb Integration",
-        description: "Get ratings, cast info, plot summaries, and more pulled directly from IMDb for every title.",
-      },
-      {
-        title: "Auto-Updating Content",
-        description: "Your playlists refresh automatically, ensuring you always see the latest available content.",
-      },
+      
     ],
   },
   {

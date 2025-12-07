@@ -29,9 +29,6 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
           const tvBoxSection = document.querySelector('[data-section="hero"]');
           const tvBox = document.querySelector("[data-tv-box]");
           const heroContent = document.querySelectorAll("[data-hero-content]");
-          const featuredSection = document.querySelector(
-            '[data-section="featured"]'
-          );
           const tvScroll = document.querySelector(
             "[data-tv-scroll]"
           ) as HTMLElement | null;
@@ -39,8 +36,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
           if (
             !tvBox ||
             !tvBoxSection ||
-            heroContent.length === 0 ||
-            !featuredSection
+            heroContent.length === 0
           ) {
             console.warn("Some elements not found for animations");
             return;
@@ -113,8 +109,86 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
             y: 0,
             duration: 0.2,
           });
- 
-          //featured section animations
+
+          // Featured Section animations
+          const featuredSection = document.querySelector(
+            '[data-section="featured"]'
+          );
+          const featureCards = document.querySelectorAll("[data-feature-index]");
+          const featuredContent = document.querySelector(
+            '[data-featured-content]'
+          );
+
+          if (featuredSection && featureCards.length > 0) {
+            const featuresCount = featureCards.length;
+            const scrollDuration = featuresCount * 300; // 1000px per feature for smooth transitions
+
+            // Animate featured content (left side text) entrance
+            if (featuredContent) {
+              gsap.from(featuredContent, {
+                scrollTrigger: {
+                  trigger: featuredSection,
+                  start: "top 95%",
+                  end: "top 60%",
+                  scrub: 1,
+                },
+                opacity: 0,
+                y: 50,
+                
+                duration: 0.8,
+              });
+            }
+
+            // Pin the featured section and control active feature based on scroll
+            ScrollTrigger.create({
+              trigger: featuredSection,
+              start: "top 10%",
+              end: `+=${scrollDuration}`,
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1,
+              markers: false, // Set to true for debugging
+              onUpdate: (self) => {
+                // Calculate which feature should be active based on scroll progress
+                const progress = self.progress;
+                // Use smooth interpolation for better transitions
+                const activeIndex = Math.min(
+                  Math.floor(progress * featuresCount),
+                  featuresCount - 1
+                );
+
+                // Update active feature via window function
+                if (
+                  typeof window !== "undefined" &&
+                  (window as any).setFeaturedActiveFeature
+                ) {
+                  const currentActive = (window as any).__currentFeaturedIndex || 0;
+                  if (currentActive !== activeIndex) {
+                    (window as any).__currentFeaturedIndex = activeIndex;
+                    (window as any).setFeaturedActiveFeature(activeIndex);
+                  }
+                }
+              },
+            });
+
+            // Animate cards entrance with stagger
+            featureCards.forEach((card, index) => {
+              gsap.from(card, {
+                scrollTrigger: {
+                  trigger: featuredSection,
+                  start: "top 95%",
+                  end: "top 60%",
+                  scrub: 1,
+                },
+                opacity: 0,
+                scale: 0.8,
+                y: 100,
+                duration: 0.6,
+                delay: index * 0.08,
+                ease: "power2.out",
+              });
+            });
+          }
 
           // Platforms Section animations
           const platformsSection = document.querySelector(

@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import TvBox from "./_components/TvBox";
 import TvBoxMobile from "./_components/TvBoxMobile";
 import { useEffect, useState } from "react";
+import { HERO_CONTENT, CTA_BUTTONS, SITE_CONFIG } from "@/lib/constants";
+import Link from "next/link";
 
 const HeroSection = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -18,38 +20,66 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="w-full py-8 md:py-16" data-section="hero">
+    <section 
+      className="w-full py-8 md:py-16" 
+      data-section="hero"
+      aria-labelledby="hero-title"
+    >
       <div className="container mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 px-4">
         {/* Left Side: Header, Title, Sub Title, Paragraph */}
         <div className="w-full md:w-4/8 text-center md:text-left" data-hero-content>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight">
-            Welcome to <span className="text-primary">Zebra </span>
+          <h1 
+            id="hero-title"
+            className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight"
+          >
+            {HERO_CONTENT.preTitle} <span className="text-primary">{HERO_CONTENT.title}</span>
           </h1>
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-4 text-muted-foreground">
-            Watch Smarter. Stream Freely.
-          </h2>
+          <p className="text-xl md:text-2xl lg:text-3xl font-semibold mb-4 text-muted-foreground">
+            {HERO_CONTENT.subtitle}
+          </p>
           <p className="mb-6 text-base md:text-lg text-foreground/80">
-            A modern IPTV player designed for clarity, speed, and a premium TV
-            experience — completely free in our first release.
-            <br className="hidden md:block" />
-            <span className="md:hidden"> </span>
-            Stream your favorite channels, movies, and shows anywhere, anytime.
+            {HERO_CONTENT.description}
           </p>
 
+          {/* Feature Pills */}
+          <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-6">
+            {HERO_CONTENT.features.map((feature) => (
+              <span 
+                key={feature}
+                className="px-3 py-1 text-xs md:text-sm bg-primary/10 text-primary rounded-full border border-primary/20"
+              >
+                {feature}
+              </span>
+            ))}
+          </div>
+
           <div className="w-full flex flex-col md:flex-row gap-4">
-            <Button size="xl" className="w-full md:w-auto">
-              <span>Download AppleTV</span>
+            <Button size="xl" className="w-full md:w-auto" asChild>
+              <Link href={CTA_BUTTONS.primary.href} aria-label={CTA_BUTTONS.primary.ariaLabel}>
+                <span>{CTA_BUTTONS.primary.text}</span>
+              </Link>
             </Button>
-            <Button size="xl" variant="outline" className="w-full md:w-auto">
-              Learn More
+            <Button size="xl" variant="outline" className="w-full md:w-auto" asChild>
+              <Link href={CTA_BUTTONS.secondary.href} aria-label={CTA_BUTTONS.secondary.ariaLabel}>
+                {CTA_BUTTONS.secondary.text}
+              </Link>
             </Button>
           </div>
         </div>
         
         {/* Right Side: Image and Visuals */}
-        <div className="flex-1 flex justify-center relative min-h-[300px] md:min-h-[500px] w-full md:w-auto" data-tv-box-wrapper>
+        <div 
+          className="flex-1 flex justify-center relative min-h-[300px] md:min-h-[500px] w-full md:w-auto" 
+          data-tv-box-wrapper
+          role="img"
+          aria-label={`${SITE_CONFIG.name} player interface demonstration`}
+        >
           {/* Light blob blur effect - covers entire right side */}
-          <div className="absolute inset-0 -inset-x-20 -inset-y-10 pointer-events-none hidden md:block" data-hero-content>
+          <div 
+            className="absolute inset-0 -inset-x-20 -inset-y-10 pointer-events-none hidden md:block" 
+            data-hero-content
+            aria-hidden="true"
+          >
             {/* Purple blob - top left area */}
             <div
               className="absolute -top-20 -left-20 w-[700px] h-[700px] rounded-full"

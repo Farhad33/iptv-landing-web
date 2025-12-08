@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
+import { FOOTER_LINKS, SOCIAL_MEDIA, FOOTER_CONTENT, NEWSLETTER, IMAGE_ALT_TEXTS } from "@/lib/constants";
 
 // Generate random positions once for particles
 const particlePositions = Array.from({ length: 20 }, (_, i) => ({
@@ -16,46 +17,13 @@ const particlePositions = Array.from({ length: 20 }, (_, i) => ({
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = {
-    product: [
-      { name: "Features", href: "#features" },
-      { name: "Platforms", href: "#platforms" },
-      { name: "Pricing", href: "#pricing" },
-      { name: "Download", href: "#download" },
-    ],
-    company: [
-      { name: "About Us", href: "#about" },
-      { name: "Careers", href: "#careers" },
-      { name: "Press", href: "#press" },
-      { name: "Contact", href: "#contact" },
-    ],
-    support: [
-      { name: "Help Center", href: "#help" },
-      { name: "Community", href: "#community" },
-      { name: "FAQ", href: "#faq" },
-      { name: "Status", href: "#status" },
-    ],
-    legal: [
-      { name: "Privacy Policy", href: "#privacy" },
-      { name: "Terms of Service", href: "#terms" },
-      { name: "Cookie Policy", href: "#cookies" },
-      { name: "Licenses", href: "#licenses" },
-    ],
-  };
-
-  const socialLinks = [
-    { name: "Twitter", icon: "mdi:twitter", href: "#twitter" },
-    { name: "Facebook", icon: "mdi:facebook", href: "#facebook" },
-    { name: "Instagram", icon: "mdi:instagram", href: "#instagram" },
-    { name: "YouTube", icon: "mdi:youtube", href: "#youtube" },
-    { name: "LinkedIn", icon: "mdi:linkedin", href: "#linkedin" },
-  ];
-
   return (
     <footer
       className="relative w-full bg-gradient-to-b from-background via-background/95 to-background/90 overflow-hidden"
       data-section="footer"
+      aria-labelledby="footer-heading"
     >
+      <h2 id="footer-heading" className="sr-only">Footer</h2>
       {/* Liquid Glass Background Effects */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Animated gradient orbs */}
@@ -87,13 +55,13 @@ const Footer = () => {
                 {/* Zebra Logo */}
                 <Image
                   src="/logo.svg"
-                  alt="Zebra IPTV Logo"
+                  alt={IMAGE_ALT_TEXTS.logo}
                   width={60}
                   height={60}
                   className="w-12 h-12 md:w-16 md:h-16"
                 />
                 <span className="text-2xl md:text-3xl text-primary font-bold bg-clip-text ">
-                  Zebra IPTV
+                  {FOOTER_CONTENT.companyName}
                 </span>
               </div>
             </div>
@@ -103,9 +71,7 @@ const Footer = () => {
             className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 md:mb-8 px-4"
             data-footer-description
           >
-            Experience entertainment like never before. Stream your favorite
-            content across all your devices with stunning quality and seamless
-            performance.
+            {FOOTER_CONTENT.description}
           </p>
 
           {/* Social Links */}
@@ -113,13 +79,15 @@ const Footer = () => {
             className="flex items-center justify-center gap-3 md:gap-4 flex-wrap"
             data-footer-social
           >
-            {socialLinks.map((social) => (
+            {SOCIAL_MEDIA.map((social) => (
               <a
                 key={social.name}
                 href={social.href}
                 className="group relative"
-                aria-label={social.name}
+                aria-label={social.ariaLabel}
                 data-social-link
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl backdrop-blur-xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:border-primary/50 overflow-hidden">
                   {/* Hover gradient */}
@@ -140,7 +108,7 @@ const Footer = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-8 md:mb-16"
           data-footer-links
         >
-          {Object.entries(footerLinks).map(([category, links]) => (
+          {Object.entries(FOOTER_LINKS).map(([category, links]) => (
             <div
               key={category}
               className="group"
@@ -165,6 +133,7 @@ const Footer = () => {
                         href={link.href}
                         className="text-xs md:text-sm text-muted-foreground hover:text-white transition-colors duration-300 inline-flex items-center group/link"
                         data-footer-link
+                        aria-label={link.ariaLabel}
                       >
                         <span className="relative">
                           {link.name}
@@ -203,22 +172,27 @@ const Footer = () => {
 
             <div className="relative z-10 text-center">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4">
-                Stay Updated
+                {NEWSLETTER.title}
               </h3>
               <p className="text-sm md:text-base text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto px-4">
-                Subscribe to our newsletter and be the first to know about new
-                features, exclusive content, and special offers.
+                {NEWSLETTER.description}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-md mx-auto px-4">
                  <Input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={NEWSLETTER.placeholder}
                   className="flex-1 h-11 md:h-12 px-4 md:px-6 rounded-lg backdrop-blur-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-primary/50 focus:bg-white/15 transition-all duration-300 text-sm md:text-base"
                   data-newsletter-input
+                  aria-label="Email address for newsletter"
+                  name="email"
+                  autoComplete="email"
                 />
-                <Button size="xl" className="h-11 md:h-12 text-sm md:text-base">Subscribe</Button>
+                <Button size="xl" className="h-11 md:h-12 text-sm md:text-base" aria-label="Subscribe to newsletter">
+                  {NEWSLETTER.buttonText}
+                </Button>
               </div>
+              <p className="text-xs text-muted-foreground mt-3">{NEWSLETTER.privacyNote}</p>
             </div>
           </div>
         </div>
@@ -229,8 +203,8 @@ const Footer = () => {
          
         >
           <div className="flex flex-col items-center justify-between gap-4 text-xs md:text-sm text-muted-foreground text-center">
-            <p  >
-              © {currentYear} Zebra. All rights reserved.
+            <p>
+              © {currentYear} {FOOTER_CONTENT.copyright}
             </p>
             <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-center"  >
               <a
@@ -253,9 +227,9 @@ const Footer = () => {
               </a>
             </div>
             <p className="flex items-center gap-2">
-              Made with{" "}
-              <Icon icon="mdi:heart" className="text-red-500 animate-pulse" />{" "}
-              for entertainment
+              {FOOTER_CONTENT.madeWith}{" "}
+              <Icon icon="mdi:heart" className="text-red-500 animate-pulse" aria-label="heart" />{" "}
+              {FOOTER_CONTENT.madeWithText}
             </p>
           </div>
         </div>

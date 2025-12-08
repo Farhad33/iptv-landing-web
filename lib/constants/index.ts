@@ -1,3 +1,10 @@
+// Export all constants
+export * from './seo';
+export * from './navigation';
+export * from './content';
+// export * from './movies'; // Removed because 'movies.ts' is not a module
+
+// Feature Sections for Landing Page
 export const FEATURES = [
   {
     category: "Personalized Experience",
@@ -160,4 +167,4 @@ export const FEATURES = [
       },
     ],
   },
-]
+] as const;

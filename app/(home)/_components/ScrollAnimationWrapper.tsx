@@ -257,7 +257,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
             // Animate platform cards with stagger and scroll-based reveal/hide
             if (platformCards.length > 0) {
               platformCards.forEach((card, index) => {
-                const icon = card.querySelector("[data-platform-icon]");
+          
                 const name = card.querySelector("[data-platform-name]");
                 const description = card.querySelector(
                   "[data-platform-description]"
@@ -276,7 +276,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
                   {
                     scrollTrigger: {
                       trigger: card,
-                      start: "top 90%",
+                      start: "top 120%",
                       end: "top 20%",
                       scrub: 1.5,
                       toggleActions: "play reverse play reverse",
@@ -291,32 +291,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
                   }
                 );
 
-                // Icon rotation animation
-                if (icon) {
-                  gsap.fromTo(
-                    icon,
-                    {
-                      scale: 0,
-                      rotation: -180,
-                      opacity: 0,
-                    },
-                    {
-                      scrollTrigger: {
-                        trigger: card,
-                        start: "top 85%",
-                        end: "top 25%",
-                        scrub: 1.5,
-                        toggleActions: "play reverse play reverse",
-                      },
-                      scale: 1,
-                      rotation: 0,
-                      opacity: 1,
-                      duration: 0.8,
-                      delay: index * 0.1 + 0.2,
-                      ease: "back.out(1.7)",
-                    }
-                  );
-                }
+              
 
                 // Name slide in
                 if (name) {
@@ -329,7 +304,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
                     {
                       scrollTrigger: {
                         trigger: card,
-                        start: "top 85%",
+                        start: "top 120%",
                         end: "top 25%",
                         scrub: 1.5,
                         toggleActions: "play reverse play reverse",
@@ -353,7 +328,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
                     {
                       scrollTrigger: {
                         trigger: card,
-                        start: "top center",
+                        start: "top 120%",
                         end: "top 25%",
                         scrub: 1.5,
                         toggleActions: "play reverse play reverse",
@@ -378,7 +353,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
                     {
                       scrollTrigger: {
                         trigger: card,
-                        start: "top center",
+                        start: "top 120%",
                         end: "top 25%",
                         scrub: 1.5,
                         toggleActions: "play reverse play reverse",

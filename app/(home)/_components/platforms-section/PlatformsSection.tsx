@@ -1,86 +1,13 @@
 "use client";
 import React from "react";
 import { Icon } from "@iconify/react";
-
-const platforms = [
-  {
-    name: "Apple TV",
-    icon: "mdi:apple",
-    description: "Stream on Apple TV 14.0 and later",
-    gradient: "linear-gradient(135deg, #232526 0%, #4b6cb7 100%)",
-    available: true,
-  },
-  {
-    name: "tvOS",
-    icon: "mdi:apple",
-    description: "Apple TV operating system",
-    gradient: "linear-gradient(135deg, #232526 0%, #4b6cb7 100%)",
-    available: true,
-  },
-  {
-    name: "Tizen TV",
-    icon: "simple-icons:samsung",
-    description: "Samsung Smart TVs",
-    gradient: "linear-gradient(135deg, #142850 0%, #00909e 100%)",
-    available: false,
-  },
-  {
-    name: "WebOS TV",
-    icon: "simple-icons:webos",
-    description: "LG Smart TVs",
-    gradient: "linear-gradient(135deg, #540d6e 0%, #ee4266 100%)",
-    available: false,
-  },
-  {
-    name: "Android",
-    icon: "mdi:android",
-    description: "Android phones & tablets",
-    gradient: "linear-gradient(135deg, #3ddc84 0%, #00c853 100%)",
-    available: false,
-  },
-  {
-    name: "iOS",
-    icon: "streamline-logos:apple-ios-logo-3",
-    description: "iPhone devices",
-    gradient: "linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%)",
-    available: false,
-  },
-  {
-    name: "iPad",
-    icon: "streamline-plump:ios-ipados",
-    description: "iPad tablets",
-    gradient: "linear-gradient(135deg, #455aa4 0%, #56b6e0 100%)",
-    available: false,
-  },
-  {
-    name: "Web",
-    icon: "mdi:web",
-    description: "Any modern browser",
-    gradient: "linear-gradient(135deg, #312e81 0%, #4f46e5 100%)",
-    available: false,
-  },
-  {
-    name: "macOS",
-    icon: "mdi:apple",
-    description: "Mac computers",
-    gradient: "linear-gradient(135deg, #232526 0%, #4b6cb7 100%)",
-    available: false,
-  },
-  {
-    name: "Windows",
-    icon: "mdi:windows",
-    description: "Windows PCs",
-    gradient: "linear-gradient(135deg, #083360 0%, #389bee 100%)",
-    available: false,
-  },
-];
+import { PLATFORM_DETAILS } from "@/lib/constants";
 
 interface PlatformCardProps {
   platform: {
     name: string;
     icon: string;
     description: string;
-    gradient: string;
     available: boolean;
   };
   index: number;
@@ -88,17 +15,12 @@ interface PlatformCardProps {
 
 const PlatformCard = ({ platform, index }: PlatformCardProps) => {
   return (
-    <div
-      className="group relative platform-card"
-      data-platform-card
-      data-platform-index={index}
-      style={{ perspective: "1000px" }}
-    >
+    <div className="group relative platform-card" data-platform-card>
       <div
         className="relative w-full h-[240px] md:h-[280px] rounded-2xl md:rounded-3xl backdrop-blur-md bg-white/5 border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center justify-center p-4 md:p-6 transition-transform duration-300 hover:scale-105 hover:-translate-y-2"
         style={{
           background: platform.available
-            ? platform.gradient
+            ? "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)"
             : "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)",
         }}
       >
@@ -106,13 +28,14 @@ const PlatformCard = ({ platform, index }: PlatformCardProps) => {
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
-            background: platform.gradient,
+            background:
+              "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)",
             opacity: platform.available ? 0.3 : 0.1,
           }}
         />
 
         {/* Icon */}
-        <div className="relative z-10 mb-3 md:mb-4 platform-icon" data-platform-icon>
+        <div className="relative z-10 mb-3 md:mb-4 platform-icon">
           <Icon
             icon={platform.icon}
             className={`text-5xl md:text-7xl ${
@@ -143,15 +66,10 @@ const PlatformCard = ({ platform, index }: PlatformCardProps) => {
 
         {/* Coming Soon Badge */}
         {!platform.available && (
-          <div
-            className="absolute top-4 right-4 z-20 platform-badge"
-            data-platform-badge
-          >
+          <div className="absolute top-4 right-4 z-20 platform-badge">
             <div className="relative">
-              <div className="px-4 py-2 rounded-full bg-gradient-to-r from-yellow-500/90 to-orange-500/90 backdrop-blur-sm border border-yellow-400/50 shadow-lg">
-                <span className="text-xs font-bold text-white uppercase tracking-wider">
-                  Coming Soon
-                </span>
+              <div className="flex items-center justify-center py-px mt-px px-2 rounded-full  bg-gradient-to-r from-yellow-500/90 to-orange-500/90 backdrop-blur-sm border border-yellow-400/50 shadow-lg">
+                <span className="text-xs   text-white  ">Coming Soon</span>
               </div>
             </div>
           </div>
@@ -159,15 +77,10 @@ const PlatformCard = ({ platform, index }: PlatformCardProps) => {
 
         {/* Available Badge */}
         {platform.available && (
-          <div
-            className="absolute top-4 right-4 z-20 platform-badge"
-            data-platform-badge
-          >
+          <div className="absolute top-4 right-4 z-20 platform-badge">
             <div className="relative">
-              <div className="px-4 py-2 rounded-full bg-gradient-to-r from-green-500/90 to-emerald-500/90 backdrop-blur-sm border border-green-400/50 shadow-lg">
-                <span className="text-xs font-bold text-white uppercase tracking-wider">
-                  Available Now
-                </span>
+              <div className="  flex items-center justify-center py-px mt-px px-2 rounded-full bg-linear-to-r from-green-500/90 to-emerald-500/90 backdrop-blur-sm border border-green-400/50 shadow-lg">
+                <span className="text-xs   text-white  ">Available</span>
               </div>
             </div>
           </div>
@@ -192,7 +105,10 @@ const PlatformsSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-8 md:mb-16" data-platforms-header>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold mb-3 md:mb-4 px-4" data-platforms-title>
+          <h2
+            className="text-2xl md:text-4xl lg:text-5xl font-extrabold mb-3 md:mb-4 px-4"
+            data-platforms-title
+          >
             Available on{" "}
             <span className="text-primary inline-block">All Your Devices</span>
           </h2>
@@ -206,11 +122,20 @@ const PlatformsSection = () => {
         </div>
 
         {/* Platforms Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 mb-16" data-platforms-grid>
-          {platforms.map((platform, index) => (
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 mb-16"
+          data-platforms-grid
+        >
+          {PLATFORM_DETAILS.map((platform, index) => (
             <PlatformCard
               key={platform.name}
-              platform={platform}
+              platform={{
+                name: platform.name,
+                icon: platform.icon,
+                description: platform.description,
+
+                available: platform.available,
+              }}
               index={index}
             />
           ))}

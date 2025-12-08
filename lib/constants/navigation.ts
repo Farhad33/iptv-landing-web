@@ -17,6 +17,11 @@ export const NAVIGATION_LINKS = [
     ariaLabel: "See supported platforms",
   },
   {
+    name: "FAQ",
+    href: "#faq",
+    ariaLabel: "Frequently asked questions",
+  },
+  {
     name: "About",
     href: "/about",
     ariaLabel: "Learn about Zebra IPTV",
@@ -30,28 +35,24 @@ export const NAVIGATION_LINKS = [
 
 export const FOOTER_LINKS = {
   product: [
-    { name: "Features", href: "#features", ariaLabel: "View all features" },
-    { name: "Platforms", href: "#platforms", ariaLabel: "Supported platforms" },
-    { name: "Pricing", href: "#pricing", ariaLabel: "View pricing plans" },
-    { name: "Download", href: "#download", ariaLabel: "Download Zebra IPTV" },
+    { name: "Features", href: "/#features", ariaLabel: "View all features" },
+    { name: "Platforms", href: "/#platforms", ariaLabel: "Supported platforms" },
+    { name: "FAQ", href: "/faq", ariaLabel: "Frequently asked questions" },
+    { name: "Download", href: "/download", ariaLabel: "Download Zebra IPTV" },
   ],
   company: [
     { name: "About Us", href: "/about", ariaLabel: "About Zebra IPTV" },
-    { name: "Careers", href: "/careers", ariaLabel: "Career opportunities" },
-    { name: "Press", href: "/press", ariaLabel: "Press and media" },
     { name: "Contact", href: "/contact", ariaLabel: "Contact us" },
+    { name: "FAQ", href: "/faq", ariaLabel: "Help and FAQ" },
   ],
   support: [
-    { name: "Help Center", href: "/help", ariaLabel: "Help center" },
-    { name: "Community", href: "/community", ariaLabel: "Join our community" },
+    { name: "Help Center", href: "/faq", ariaLabel: "Help center" },
+    { name: "Contact Support", href: "/contact", ariaLabel: "Contact support" },
     { name: "FAQ", href: "/faq", ariaLabel: "Frequently asked questions" },
-    { name: "Status", href: "/status", ariaLabel: "System status" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy", ariaLabel: "Privacy policy" },
     { name: "Terms of Service", href: "/terms", ariaLabel: "Terms of service" },
-    { name: "Cookie Policy", href: "/cookies", ariaLabel: "Cookie policy" },
-    { name: "Licenses", href: "/licenses", ariaLabel: "Software licenses" },
   ],
 } as const;
 
@@ -91,7 +92,7 @@ export const SOCIAL_MEDIA = [
 export const CTA_BUTTONS = {
   primary: {
     text: "Download for Apple TV",
-    href: "/download/appletv",
+    href: "/download",
     ariaLabel: "Download Zebra IPTV for Apple TV",
   },
   secondary: {
@@ -99,15 +100,10 @@ export const CTA_BUTTONS = {
     href: "#features",
     ariaLabel: "Learn more about Zebra IPTV features",
   },
-  login: {
-    text: "Login",
-    href: "/login",
-    ariaLabel: "Login to your account",
-  },
-  signup: {
-    text: "Sign Up",
-    href: "/signup",
-    ariaLabel: "Create a new account",
+  download: {
+    text: "Download Now",
+    href: "/download",
+    ariaLabel: "Download Zebra IPTV",
   },
 } as const;
 

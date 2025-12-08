@@ -5,9 +5,19 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Icon } from "@iconify/react";
 import { SITE_CONFIG, NAVIGATION_LINKS, CTA_BUTTONS, IMAGE_ALT_TEXTS } from "@/lib/constants";
+import { smoothScrollToElement } from "@/lib/utils/scroll";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const elementId = href.substring(1);
+      smoothScrollToElement(elementId);
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   return (
     <header className="w-full sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -43,6 +53,7 @@ const Header = () => {
                   href={link.href} 
                   className="hover:underline transition-all duration-200 hover:text-primary"
                   aria-label={link.ariaLabel}
+                  onClick={(e) => handleNavClick(e, link.href)}
                 >
                   {link.name}
                 </Link>
@@ -54,13 +65,8 @@ const Header = () => {
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center space-x-4 h-full">
           <Button size={"lg"} variant="default" asChild>
-            <Link href={CTA_BUTTONS.login.href} aria-label={CTA_BUTTONS.login.ariaLabel}>
-              {CTA_BUTTONS.login.text}
-            </Link>
-          </Button>
-          <Button size={"lg"} variant="outline" asChild>
-            <Link href={CTA_BUTTONS.signup.href} aria-label={CTA_BUTTONS.signup.ariaLabel}>
-              {CTA_BUTTONS.signup.text}
+            <Link href={CTA_BUTTONS.download.href} aria-label={CTA_BUTTONS.download.ariaLabel}>
+              {CTA_BUTTONS.download.text}
             </Link>
           </Button>
         </div>
@@ -96,7 +102,7 @@ const Header = () => {
                   <Link
                     href={link.href}
                     className="block py-2 hover:underline transition-all duration-200 hover:text-primary"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => handleNavClick(e, link.href)}
                     aria-label={link.ariaLabel}
                   >
                     {link.name}
@@ -106,13 +112,8 @@ const Header = () => {
             </ul>
             <div className="flex flex-col gap-3 mt-6">
               <Button size={"lg"} variant="default" className="w-full" asChild>
-                <Link href={CTA_BUTTONS.login.href} aria-label={CTA_BUTTONS.login.ariaLabel}>
-                  {CTA_BUTTONS.login.text}
-                </Link>
-              </Button>
-              <Button size={"lg"} variant="outline" className="w-full" asChild>
-                <Link href={CTA_BUTTONS.signup.href} aria-label={CTA_BUTTONS.signup.ariaLabel}>
-                  {CTA_BUTTONS.signup.text}
+                <Link href={CTA_BUTTONS.download.href} aria-label={CTA_BUTTONS.download.ariaLabel}>
+                  {CTA_BUTTONS.download.text}
                 </Link>
               </Button>
             </div>

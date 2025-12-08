@@ -1,6 +1,7 @@
 import FeaturedSection from "./_components/featured-section/FeaturedSection";
 import HeroSection from "./_components/hero/HeroSection";
 import PlatformsSection from "./_components/platforms-section/PlatformsSection";
+import FaqSection from "./_components/faq-section/FaqSection";
 import Footer from "./_components/footer/Footer";
 import ScrollAnimationWrapper from "./_components/ScrollAnimationWrapper";
 import ScrollIndicator from "./_components/ScrollIndicator";
@@ -36,6 +37,7 @@ export default function Home() {
           <HeroSection />
           <FeaturedSection />
           <PlatformsSection />
+          <FaqSection />
           <Footer />
           <ScrollIndicator />
         </main>

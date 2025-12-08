@@ -252,6 +252,12 @@ export const PAGE_METADATA = {
       "Get in touch with Zebra IPTV team for support, feedback, or inquiries. We're here to help you with your IPTV streaming experience.",
     canonical: `${SITE_CONFIG.url}/contact`,
   },
+  faq: {
+    title: "FAQ - Frequently Asked Questions | Zebra IPTV",
+    description:
+      "Find answers to frequently asked questions about Zebra IPTV. Learn about features, setup, troubleshooting, and more.",
+    canonical: `${SITE_CONFIG.url}/faq`,
+  },
 } as const;
 
 // Alt texts for images

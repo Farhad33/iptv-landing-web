@@ -2,6 +2,7 @@
 export * from './seo';
 export * from './navigation';
 export * from './content';
+export * from './platforms';
 // export * from './movies'; // Removed because 'movies.ts' is not a module
 
 // Feature Sections for Landing Page

@@ -194,23 +194,370 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
           const platformsSection = document.querySelector(
             '[data-section="platforms"]'
           );
-          const platforms = document.querySelectorAll("[data-platform]");
+          const platformsHeader = document.querySelector("[data-platforms-header]");
+          const platformsTitle = document.querySelector("[data-platforms-title]");
+          const platformsSubtitle = document.querySelector("[data-platforms-subtitle]");
+          const platformCards = document.querySelectorAll("[data-platform-card]");
+          const platformsCta = document.querySelector("[data-platforms-cta]");
 
-          if (platformsSection && platforms.length > 0) {
-            platforms.forEach((platform) => {
-              gsap.from(platform, {
+          if (platformsSection) {
+            // Animate header entrance
+            if (platformsHeader) {
+              gsap.from(platformsTitle, {
                 scrollTrigger: {
-                  trigger: platform,
-                  start: "top 80%",
-                  end: "top 50%",
+                  trigger: platformsHeader,
+                  start: "top 85%",
+                  end: "top 60%",
                   scrub: 1,
                 },
                 opacity: 0,
-                y: 100,
-                scale: 0.8,
-                duration: 1,
+                y: -50,
+                scale: 0.9,
+                duration: 0.8,
               });
-            });
+
+              gsap.from(platformsSubtitle, {
+                scrollTrigger: {
+                  trigger: platformsHeader,
+                  start: "top 85%",
+                  end: "top 60%",
+                  scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                delay: 0.2,
+              });
+            }
+
+            // Animate platform cards with stagger and scroll-based reveal/hide
+            if (platformCards.length > 0) {
+              platformCards.forEach((card, index) => {
+                const icon = card.querySelector("[data-platform-icon]");
+                const name = card.querySelector("[data-platform-name]");
+                const description = card.querySelector("[data-platform-description]");
+                const badge = card.querySelector("[data-platform-badge]");
+
+                // Main card animation - appears and disappears with scroll
+                gsap.fromTo(
+                  card,
+                  {
+                    opacity: 0,
+                    y: 100,
+                    scale: 0.5,
+                    rotateX: -45,
+                  },
+                  {
+                    scrollTrigger: {
+                      trigger: card,
+                      start: "top 90%",
+                      end: "top 20%",
+                      scrub: 1.5,
+                      toggleActions: "play reverse play reverse",
+                    },
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    rotateX: 0,
+                    duration: 1,
+                    delay: index * 0.1,
+                    ease: "power2.out",
+                  }
+                );
+
+                // Icon rotation animation
+                if (icon) {
+                  gsap.fromTo(
+                    icon,
+                    {
+                      scale: 0,
+                      rotation: -180,
+                      opacity: 0,
+                    },
+                    {
+                      scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "top 25%",
+                        scrub: 1.5,
+                        toggleActions: "play reverse play reverse",
+                      },
+                      scale: 1,
+                      rotation: 0,
+                      opacity: 1,
+                      duration: 0.8,
+                      delay: index * 0.1 + 0.2,
+                      ease: "back.out(1.7)",
+                    }
+                  );
+                }
+
+                // Name slide in
+                if (name) {
+                  gsap.fromTo(
+                    name,
+                    {
+                      opacity: 0,
+                      y: 20,
+                    },
+                    {
+                      scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "top 25%",
+                        scrub: 1.5,
+                        toggleActions: "play reverse play reverse",
+                      },
+                      opacity: 1,
+                      y: 0,
+                      duration: 0.6,
+                      delay: index * 0.1 + 0.3,
+                      ease: "power2.out",
+                    }
+                  );
+                }
+
+                // Description fade in
+                if (description) {
+                  gsap.fromTo(
+                    description,
+                    {
+                      opacity: 0,
+                    },
+                    {
+                      scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "top 25%",
+                        scrub: 1.5,
+                        toggleActions: "play reverse play reverse",
+                      },
+                      opacity: 1,
+                      duration: 0.6,
+                      delay: index * 0.1 + 0.4,
+                      ease: "power2.out",
+                    }
+                  );
+                }
+
+                // Badge scale and rotate in
+                if (badge) {
+                  gsap.fromTo(
+                    badge,
+                    {
+                      scale: 0,
+                      rotation: -45,
+                      opacity: 0,
+                    },
+                    {
+                      scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "top 25%",
+                        scrub: 1.5,
+                        toggleActions: "play reverse play reverse",
+                      },
+                      scale: 1,
+                      rotation: 0,
+                      opacity: 1,
+                      duration: 0.5,
+                      delay: index * 0.1 + 0.5,
+                      ease: "back.out(1.7)",
+                    }
+                  );
+                }
+              });
+            }
+
+            // Animate CTA
+            if (platformsCta) {
+              gsap.from(platformsCta, {
+                scrollTrigger: {
+                  trigger: platformsCta,
+                  start: "top 90%",
+                  end: "top 60%",
+                  scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+              });
+            }
+          }
+
+          // Footer Section animations
+          const footerSection = document.querySelector('[data-section="footer"]');
+          const footerHeader = document.querySelector("[data-footer-header]");
+          const footerLogo = document.querySelector("[data-footer-logo]");
+          const footerDescription = document.querySelector("[data-footer-description]");
+          const footerSocial = document.querySelector("[data-footer-social]");
+          const socialLinks = document.querySelectorAll("[data-social-link]");
+          const footerLinks = document.querySelector("[data-footer-links]");
+          const footerCategories = document.querySelectorAll("[data-footer-category]");
+          const footerNewsletter = document.querySelector("[data-footer-newsletter]");
+          const footerBottom = document.querySelector("[data-footer-bottom]");
+
+          if (footerSection) {
+            // Animate logo with scale and glow effect
+            if (footerLogo) {
+              gsap.fromTo(
+                footerLogo,
+                {
+                  opacity: 0,
+                  scale: 0.5,
+                  y: -50,
+                },
+                {
+                  scrollTrigger: {
+                    trigger: footerHeader,
+                    start: "top 85%",
+                    end: "top 50%",
+                    scrub: 1.5,
+                  },
+                  opacity: 1,
+                  scale: 1,
+                  y: 0,
+                  duration: 1,
+                  ease: "back.out(1.7)",
+                }
+              );
+            }
+
+            // Animate description
+            if (footerDescription) {
+              gsap.from(footerDescription, {
+                scrollTrigger: {
+                  trigger: footerHeader,
+                  start: "top 80%",
+                  end: "top 50%",
+                  scrub: 1.5,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+              });
+            }
+
+            // Animate social links with stagger
+            if (socialLinks.length > 0) {
+              socialLinks.forEach((link, index) => {
+                gsap.fromTo(
+                  link,
+                  {
+                    opacity: 0,
+                    scale: 0,
+                    rotation: -180,
+                  },
+                  {
+                    scrollTrigger: {
+                      trigger: footerSocial,
+                      start: "top 80%",
+                      end: "top 50%",
+                      scrub: 1.5,
+                    },
+                    opacity: 1,
+                    scale: 1,
+                    rotation: 0,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: "back.out(1.7)",
+                  }
+                );
+              });
+            }
+
+            // Animate footer link categories with stagger
+            if (footerCategories.length > 0) {
+              footerCategories.forEach((category, index) => {
+                gsap.fromTo(
+                  category,
+                  {
+                    opacity: 0,
+                    y: 50,
+                    scale: 0.9,
+                  },
+                  {
+                    scrollTrigger: {
+                      trigger: footerLinks,
+                      start: "top 85%",
+                      end: "top 50%",
+                      scrub: 1.5,
+                    },
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    delay: index * 0.15,
+                    ease: "power2.out",
+                  }
+                );
+
+                // Animate links inside each category
+                const links = category.querySelectorAll("[data-footer-link]");
+                links.forEach((link, linkIndex) => {
+                  gsap.from(link, {
+                    scrollTrigger: {
+                      trigger: category,
+                      start: "top 80%",
+                      end: "top 50%",
+                      scrub: 1.5,
+                    },
+                    opacity: 0,
+                    x: -20,
+                    duration: 0.5,
+                    delay: index * 0.15 + linkIndex * 0.05,
+                    ease: "power2.out",
+                  });
+                });
+              });
+            }
+
+           
+            // Animate bottom section
+            if (footerBottom) {
+              const copyright = document.querySelector("[data-footer-copyright]");
+              const meta = document.querySelector("[data-footer-meta]");
+
+              gsap.from(footerBottom, {
+                scrollTrigger: {
+                  trigger: footerBottom,
+                  start: "top 95%",
+                  end: "top 70%",
+                  scrub: 1,
+                },
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+              });
+
+              if (copyright) {
+                gsap.from(copyright, {
+                  scrollTrigger: {
+                    trigger: footerBottom,
+                    start: "top 95%",
+                    end: "top 70%",
+                    scrub: 1,
+                  },
+                  opacity: 0,
+                  x: -30,
+                  duration: 0.6,
+                });
+              }
+
+              if (meta) {
+                gsap.from(meta, {
+                  scrollTrigger: {
+                    trigger: footerBottom,
+                    start: "top 95%",
+                    end: "top 70%",
+                    scrub: 1,
+                  },
+                  opacity: 0,
+                  x: 30,
+                  duration: 0.6,
+                });
+              }
+            }
           }
 
           console.log("GSAP animations set up successfully!");

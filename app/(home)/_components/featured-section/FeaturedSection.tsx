@@ -4,8 +4,21 @@ import { FEATURES } from "@/lib/constants";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import FeaturedSectionMobile from "./FeaturedSectionMobile";
+import FeaturesSubDetails from "./_components/FeaturesSubDetails";
 
 const FeaturedSection = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
   const [activeFeature, setActiveFeature] = useState<number>(0);
   const sectionRef = useRef<HTMLElement>(null);
   const activeFeatureRef = useRef<number>(0);
@@ -27,118 +40,19 @@ const FeaturedSection = () => {
     };
   }, []);
 
+  // Use mobile version on small screens
+  if (isMobile) {
+    return <FeaturedSectionMobile />;
+  }
+
   return (
     <section
       ref={sectionRef}
-      className="w-full grid grid-cols-5 py-16  container mx-auto"
+      className="w-full grid grid-cols-5 py-16 container mx-auto px-4"
       data-section="featured"
     >
       <div className="col-span-2" data-featured-content>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeFeature}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <h1 className="text-5xl font-extrabold">
-              {FEATURES[activeFeature].category}
-            </h1>
-            <p className="text-xl text-muted-foreground my-5">
-              {FEATURES[activeFeature].description}
-            </p>
-
-            <div className="relative space-y-0">
-              {/* Vertical connecting line with animation */}
-              <motion.div 
-                className="absolute left-4 top-0 w-[2px] bg-primary origin-top"
-                initial={{ height: 0 }}
-                animate={{ height: "100%" }}
-                transition={{ 
-                  duration: 0.8,
-                  ease: "easeInOut",
-                  delay: 0.2
-                }}
-              />
-
-              {FEATURES[activeFeature].features.map((feature, index) => (
-                <div key={feature.title} className="relative pb-12 last:pb-0">
-                  {/* Dot on vertical line */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      duration: 0.3,
-                      delay: 0.3 + index * 0.3,
-                      ease: "backOut"
-                    }}
-                    className="absolute left-px top-0 flex items-center justify-center"
-                  >
-                    <span className="flex w-8 h-8 items-center justify-center border border-primary rounded-full bg-background">
-                      <span className="flex w-6 h-6 items-center justify-center border border-primary rounded-full">
-                        <span className="block w-2 h-2 bg-primary rounded-full"></span>
-                      </span>
-                    </span>
-                  </motion.div>
-
-                  {/* Horizontal line from dot to title with width animation */}
-                  <motion.div 
-                    className="absolute opacity-0! left-8 top-3 h-[2px] bg-primary origin-left"
-                    initial={{ width: 0 }}
-                    animate={{ width: "2rem" }}
-                    transition={{ 
-                      duration: 0.4,
-                      delay: 0.5 + index * 0.3,
-                      ease: "easeOut"
-                    }}
-                  />
-
-                  {/* Title */}
-                  <motion.div 
-                    className="text-lg font-bold text-white ml-10"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ 
-                      duration: 0.3,
-                      delay: 0.7 + index * 0.3
-                    }}
-                  >
-                    {feature.title}
-                  </motion.div>
-
-                  {/* Description container */}
-                  <div className="ml-20 mt-10 relative">
-                    {/* Horizontal line to description with width animation */}
-                    <motion.div 
-                      className="absolute -left-16 top-5 h-[2px] rounded-full bg-primary origin-left"
-                      initial={{ width: 0 }}
-                      animate={{ width: "4rem" }}
-                      transition={{ 
-                        duration: 0.4,
-                        delay: 0.9 + index * 0.3,
-                        ease: "easeOut"
-                      }}
-                    />
-
-                    {/* Description */}
-                    <motion.p 
-                      className="text-sm text-muted-foreground ml-0 pl-2"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ 
-                        duration: 0.3,
-                        delay: 1.1 + index * 0.3
-                      }}
-                    >
-                      {feature.description}
-                    </motion.p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        <FeaturesSubDetails activeFeature={FEATURES[activeFeature]} />
       </div>
 
       {/* Features Items - Stacked Card Menu with Carousel Effect */}

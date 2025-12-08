@@ -75,24 +75,24 @@ const Footer = () => {
       </div>
 
       {/* Main Footer Content */}
-      <div className="relative z-10 container mx-auto px-4 pt-20 pb-8">
+      <div className="relative z-10 container mx-auto px-4 pt-12 md:pt-20 pb-8">
         {/* Top Section - Logo and Description */}
-        <div className="mb-16 text-center" data-footer-header>
-          <div className="inline-block mb-6" data-footer-logo>
+        <div className="mb-8 md:mb-16 text-center" data-footer-header>
+          <div className="inline-block mb-4 md:mb-6" data-footer-logo>
             <div className="relative group">
               {/* Liquid glass card for logo */}
 
               {/* Zebra IPTV Title + Logo */}
-              <div className="flex items-center justify-center gap-x-4">
+              <div className="flex items-center justify-center gap-x-2 md:gap-x-4">
                 {/* Zebra Logo */}
                 <Image
                   src="/logo.svg"
                   alt="Zebra IPTV Logo"
                   width={60}
                   height={60}
-                  className="w-16 h-16"
+                  className="w-12 h-12 md:w-16 md:h-16"
                 />
-                <span className="text-3xl text-primary font-bold bg-clip-text ">
+                <span className="text-2xl md:text-3xl text-primary font-bold bg-clip-text ">
                   Zebra IPTV
                 </span>
               </div>
@@ -100,7 +100,7 @@ const Footer = () => {
           </div>
 
           <p
-            className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8"
+            className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 md:mb-8 px-4"
             data-footer-description
           >
             Experience entertainment like never before. Stream your favorite
@@ -110,7 +110,7 @@ const Footer = () => {
 
           {/* Social Links */}
           <div
-            className="flex items-center justify-center gap-4"
+            className="flex items-center justify-center gap-3 md:gap-4 flex-wrap"
             data-footer-social
           >
             {socialLinks.map((social) => (
@@ -121,13 +121,13 @@ const Footer = () => {
                 aria-label={social.name}
                 data-social-link
               >
-                <div className="relative w-12 h-12 rounded-2xl backdrop-blur-xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:border-primary/50 overflow-hidden">
+                <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl backdrop-blur-xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-white/10 hover:border-primary/50 overflow-hidden">
                   {/* Hover gradient */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                   <Icon
                     icon={social.icon}
-                    className="relative z-10 text-2xl text-white/60 group-hover:text-white transition-colors duration-300"
+                    className="relative z-10 text-xl md:text-2xl text-white/60 group-hover:text-white transition-colors duration-300"
                   />
                 </div>
               </a>
@@ -137,7 +137,7 @@ const Footer = () => {
 
         {/* Links Section - Glass Cards */}
         <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-8 md:mb-16"
           data-footer-links
         >
           {Object.entries(footerLinks).map(([category, links]) => (
@@ -146,7 +146,7 @@ const Footer = () => {
               className="group"
               data-footer-category={category}
             >
-              <div className="relative p-6 rounded-3xl backdrop-blur-xl bg-white/5 border border-white/10 shadow-xl overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-primary/30 h-full">
+              <div className="relative p-4 md:p-6 rounded-2xl md:rounded-3xl backdrop-blur-xl bg-white/5 border border-white/10 shadow-xl overflow-hidden transition-all duration-500 hover:bg-white/10 hover:border-primary/30 h-full">
                 {/* Liquid effect on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -155,15 +155,15 @@ const Footer = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </div>
 
-                <h3 className="relative text-sm font-bold text-white uppercase tracking-wider mb-4">
+                <h3 className="relative text-xs md:text-sm font-bold text-white uppercase tracking-wider mb-3 md:mb-4">
                   {category}
                 </h3>
-                <ul className="relative space-y-3">
+                <ul className="relative space-y-2 md:space-y-3">
                   {links.map((link) => (
                     <li key={link.name}>
                       <a
                         href={link.href}
-                        className="text-sm text-muted-foreground hover:text-white transition-colors duration-300 inline-flex items-center group/link"
+                        className="text-xs md:text-sm text-muted-foreground hover:text-white transition-colors duration-300 inline-flex items-center group/link"
                         data-footer-link
                       >
                         <span className="relative">
@@ -180,13 +180,13 @@ const Footer = () => {
         </div>
 
         {/* Newsletter Section - Large Glass Card */}
-        <div className="mb-16" data-footer-newsletter>
-          <div className="relative max-w-4xl mx-auto p-8 md:p-12 rounded-3xl backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 shadow-2xl overflow-hidden group">
+        <div className="mb-8 md:mb-16" data-footer-newsletter>
+          <div className="relative max-w-4xl mx-auto p-6 md:p-8 lg:p-12 rounded-2xl md:rounded-3xl backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 shadow-2xl overflow-hidden group">
             {/* Animated background */}
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-purple-500/20 to-blue-500/20 opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
 
-            {/* Floating particles */}
-            <div className="absolute inset-0 overflow-hidden">
+            {/* Floating particles - hidden on mobile to reduce animations */}
+            <div className="absolute inset-0 overflow-hidden hidden md:block">
               {particlePositions.map((pos, i) => (
                 <div
                   key={i}
@@ -202,22 +202,22 @@ const Footer = () => {
             </div>
 
             <div className="relative z-10 text-center">
-              <h3 className="text-3xl font-bold text-white mb-4">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4">
                 Stay Updated
               </h3>
-              <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+              <p className="text-sm md:text-base text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto px-4">
                 Subscribe to our newsletter and be the first to know about new
                 features, exclusive content, and special offers.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-md mx-auto px-4">
                  <Input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 h-12 px-6 rounded-lg backdrop-blur-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-primary/50 focus:bg-white/15 transition-all duration-300"
+                  className="flex-1 h-11 md:h-12 px-4 md:px-6 rounded-lg backdrop-blur-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-primary/50 focus:bg-white/15 transition-all duration-300 text-sm md:text-base"
                   data-newsletter-input
                 />
-                <Button size="xl">Subscribe</Button>
+                <Button size="xl" className="h-11 md:h-12 text-sm md:text-base">Subscribe</Button>
               </div>
             </div>
           </div>
@@ -225,14 +225,14 @@ const Footer = () => {
 
         {/* Bottom Section - Copyright */}
         <div
-          className="relative pt-8 border-t border-white/10"
-          data-footer-bottom
+          className="relative pt-6 md:pt-8 border-t border-white/10"
+         
         >
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-            <p data-footer-copyright>
+          <div className="flex flex-col items-center justify-between gap-4 text-xs md:text-sm text-muted-foreground text-center">
+            <p  >
               © {currentYear} Zebra. All rights reserved.
             </p>
-            <div className="flex items-center gap-6" data-footer-meta>
+            <div className="flex items-center gap-4 md:gap-6 flex-wrap justify-center"  >
               <a
                 href="#privacy"
                 className="hover:text-white transition-colors duration-300"

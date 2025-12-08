@@ -95,7 +95,7 @@ const PlatformCard = ({ platform, index }: PlatformCardProps) => {
       style={{ perspective: "1000px" }}
     >
       <div
-        className="relative w-full h-[280px] rounded-3xl backdrop-blur-md bg-white/5 border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center justify-center p-6 transition-transform duration-300 hover:scale-105 hover:-translate-y-2"
+        className="relative w-full h-[240px] md:h-[280px] rounded-2xl md:rounded-3xl backdrop-blur-md bg-white/5 border border-white/10 shadow-2xl overflow-hidden flex flex-col items-center justify-center p-4 md:p-6 transition-transform duration-300 hover:scale-105 hover:-translate-y-2"
         style={{
           background: platform.available
             ? platform.gradient
@@ -112,10 +112,10 @@ const PlatformCard = ({ platform, index }: PlatformCardProps) => {
         />
 
         {/* Icon */}
-        <div className="relative z-10 mb-4 platform-icon" data-platform-icon>
+        <div className="relative z-10 mb-3 md:mb-4 platform-icon" data-platform-icon>
           <Icon
             icon={platform.icon}
-            className={`text-7xl ${
+            className={`text-5xl md:text-7xl ${
               platform.available ? "text-white" : "text-white/40"
             }`}
           />
@@ -123,7 +123,7 @@ const PlatformCard = ({ platform, index }: PlatformCardProps) => {
 
         {/* Platform name */}
         <h3
-          className={`text-2xl font-bold mb-2 relative z-10 platform-name ${
+          className={`text-lg md:text-2xl font-bold mb-1 md:mb-2 relative z-10 platform-name ${
             platform.available ? "text-white" : "text-white/60"
           }`}
           data-platform-name
@@ -133,7 +133,7 @@ const PlatformCard = ({ platform, index }: PlatformCardProps) => {
 
         {/* Description */}
         <p
-          className={`text-sm text-center relative z-10 platform-description ${
+          className={`text-xs md:text-sm text-center relative z-10 platform-description ${
             platform.available ? "text-white/80" : "text-white/40"
           }`}
           data-platform-description
@@ -180,7 +180,7 @@ const PlatformCard = ({ platform, index }: PlatformCardProps) => {
 const PlatformsSection = () => {
   return (
     <section
-      className="w-full py-24 bg-gradient-to-b from-background to-background/50 relative overflow-hidden"
+      className="w-full py-12 md:py-24 bg-gradient-to-b from-background to-background/50 relative overflow-hidden"
       data-section="platforms"
     >
       {/* Background elements */}
@@ -191,13 +191,13 @@ const PlatformsSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16" data-platforms-header>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4" data-platforms-title>
+        <div className="text-center mb-8 md:mb-16" data-platforms-header>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold mb-3 md:mb-4 px-4" data-platforms-title>
             Available on{" "}
             <span className="text-primary inline-block">All Your Devices</span>
           </h2>
           <p
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-4"
             data-platforms-subtitle
           >
             Watch Zebra anywhere, anytime. Stream seamlessly across all your
@@ -206,7 +206,7 @@ const PlatformsSection = () => {
         </div>
 
         {/* Platforms Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-16" data-platforms-grid>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 mb-16" data-platforms-grid>
           {platforms.map((platform, index) => (
             <PlatformCard
               key={platform.name}

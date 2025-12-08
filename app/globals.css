@@ -123,6 +123,14 @@
     @apply bg-background text-foreground;
     overflow-x: hidden;
   }
+  /* Hide scrollbar for horizontal scroll */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
   /* Hide scrollbar for TV scroll content */
   [data-tv-scroll]::-webkit-scrollbar {
     display: none;

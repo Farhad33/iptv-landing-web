@@ -10,6 +10,17 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Check if mobile device - disable complex animations on mobile
+    const checkMobile = () => {
+      return typeof window !== "undefined" && window.innerWidth < 768;
+    };
+    const isMobile = checkMobile();
+    
+    // On mobile, skip GSAP animations entirely for better performance
+    if (isMobile) {
+      return;
+    }
+
     // Dynamically import GSAP only on client side
     import("gsap").then((gsapModule) => {
       const gsap = gsapModule.default;
@@ -25,7 +36,10 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
         }
 
         const ctx = gsap.context(() => {
-          // TV Box zoom animation
+          // Re-check mobile status inside context
+          const isMobileDevice = checkMobile();
+          
+          // TV Box zoom animation - only on desktop
           const tvBoxSection = document.querySelector('[data-section="hero"]');
           const tvBox = document.querySelector("[data-tv-box]");
           const heroContent = document.querySelectorAll("[data-hero-content]");
@@ -33,84 +47,78 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
             "[data-tv-scroll]"
           ) as HTMLElement | null;
 
-          if (
-            !tvBox ||
-            !tvBoxSection ||
-            heroContent.length === 0
-          ) {
-            console.warn("Some elements not found for animations");
-            return;
-          }
+          // Skip TV box animations on mobile
+          if (tvBox && tvBoxSection && heroContent.length > 0 && !isMobileDevice) {
+            console.log("Setting up GSAP animations...");
 
-          console.log("Setting up GSAP animations...");
+            // Create a timeline for the TV Box zoom sequence
+            const tvTimeline = gsap.timeline({
+              scrollTrigger: {
+                trigger: tvBoxSection,
+                start: "top top",
+                end: "+=4000",
+                scrub: 1.5,
+                pin: true,
+                anticipatePin: 1,
+                markers: false, // Set to true for debugging
+              },
+            });
 
-          // Create a timeline for the TV Box zoom sequence
-          const tvTimeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: tvBoxSection,
-              start: "top top",
-              end: "+=4000",
-              scrub: 1.5,
-              pin: true,
-              anticipatePin: 1,
-              markers: false, // Set to true for debugging
-            },
-          });
+            // Hide hero content while zooming
+            tvTimeline.to(heroContent, {
+              opacity: 0,
+              y: -50,
+              duration: 0.2,
+            });
 
-          // Hide hero content while zooming
-          tvTimeline.to(heroContent, {
-            opacity: 0,
-            y: -50,
-            duration: 0.2,
-          });
+            // Zoom TV to fullscreen with smooth easing
+            tvTimeline.to(
+              tvBox,
+              {
+                scale: 2,
+                x: "-70%",
+                translateX: "70%",
+                y: "15%",
+                duration: 0.8,
+                ease: "power2.inOut",
+              },
+              "+=0.1"
+            );
 
-          // Zoom TV to fullscreen with smooth easing
-          tvTimeline.to(
-            tvBox,
-            {
-              scale: 2,
-              x: "-70%",
-              translateX: "70%",
-              y: "15%",
+            // Simulate scrolling inside TV - scroll the content
+            if (tvScroll) {
+              tvTimeline.to(
+                tvScroll,
+                {
+                  scrollTop: 300,
+                  duration: 0.8,
+                  ease: "power1.inOut",
+                },
+                "+=0.2"
+              );
+            }
+
+            // Hold the zoomed state
+            tvTimeline.to({}, { duration: 0.3 });
+
+            // Zoom back to normal
+            tvTimeline.to(tvBox, {
+              scale: 1,
+              x: 0,
+              y: 0,
               duration: 0.8,
               ease: "power2.inOut",
-            },
-            "+=0.1"
-          );
+            });
 
-          // Simulate scrolling inside TV - scroll the content
-          if (tvScroll) {
-            tvTimeline.to(
-              tvScroll,
-              {
-                scrollTop: 300,
-                duration: 0.8,
-                ease: "power1.inOut",
-              },
-              "+=0.2"
-            );
+            // Show hero content back
+            tvTimeline.to(heroContent, {
+              opacity: 1,
+              y: 0,
+              duration: 0.2,
+            });
           }
 
-          // Hold the zoomed state
-          tvTimeline.to({}, { duration: 0.3 });
-
-          // Zoom back to normal
-          tvTimeline.to(tvBox, {
-            scale: 1,
-            x: 0,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.inOut",
-          });
-
-          // Show hero content back
-          tvTimeline.to(heroContent, {
-            opacity: 1,
-            y: 0,
-            duration: 0.2,
-          });
-
-          // Featured Section animations
+          // Featured Section animations - skip on mobile (uses mobile component)
           const featuredSection = document.querySelector(
             '[data-section="featured"]'
           );
@@ -119,7 +127,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
             '[data-featured-content]'
           );
 
-          if (featuredSection && featureCards.length > 0) {
+          if (featuredSection && featureCards.length > 0 && !isMobileDevice) {
             const featuresCount = featureCards.length;
             const scrollDuration = featuresCount * 300; // 1000px per feature for smooth transitions
 
@@ -190,7 +198,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
             });
           }
 
-          // Platforms Section animations
+          // Platforms Section animations - reduced on mobile
           const platformsSection = document.querySelector(
             '[data-section="platforms"]'
           );
@@ -200,7 +208,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
           const platformCards = document.querySelectorAll("[data-platform-card]");
           const platformsCta = document.querySelector("[data-platforms-cta]");
 
-          if (platformsSection) {
+          if (platformsSection && !isMobileDevice) {
             // Animate header entrance
             if (platformsHeader) {
               gsap.from(platformsTitle, {
@@ -385,7 +393,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
             }
           }
 
-          // Footer Section animations
+          // Footer Section animations - reduced on mobile
           const footerSection = document.querySelector('[data-section="footer"]');
           const footerHeader = document.querySelector("[data-footer-header]");
           const footerLogo = document.querySelector("[data-footer-logo]");
@@ -397,7 +405,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
           const footerNewsletter = document.querySelector("[data-footer-newsletter]");
           const footerBottom = document.querySelector("[data-footer-bottom]");
 
-          if (footerSection) {
+          if (footerSection && !isMobileDevice) {
             // Animate logo with scale and glow effect
             if (footerLogo) {
               gsap.fromTo(

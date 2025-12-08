@@ -25,6 +25,7 @@ const FeaturesSubDetails = ({ activeFeature }: FeaturesSubDetailsProps) => {
           <div className="relative space-y-0">
             {/* Vertical connecting line with animation */}
             <motion.div
+              key={`vertical-line-${activeFeature.category}`}
               className="absolute left-4 top-0 w-[2px] bg-primary origin-top"
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
@@ -112,6 +113,15 @@ const FeaturesSubDetails = ({ activeFeature }: FeaturesSubDetailsProps) => {
           </div>
         </motion.div>
       </AnimatePresence>
+
+      {/* Big vlure blob effect */}
+    
+      <motion.div
+        className="absolute -top-20 -right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+      />
     </div>
   );
 };

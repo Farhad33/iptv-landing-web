@@ -15,7 +15,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
       return typeof window !== "undefined" && window.innerWidth < 768;
     };
     const isMobile = checkMobile();
-    
+
     // On mobile, skip GSAP animations entirely for better performance
     if (isMobile) {
       return;
@@ -38,7 +38,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
         const ctx = gsap.context(() => {
           // Re-check mobile status inside context
           const isMobileDevice = checkMobile();
-          
+
           // TV Box zoom animation - only on desktop
           const tvBoxSection = document.querySelector('[data-section="hero"]');
           const tvBox = document.querySelector("[data-tv-box]");
@@ -48,7 +48,12 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
           ) as HTMLElement | null;
 
           // Skip TV box animations on mobile
-          if (tvBox && tvBoxSection && heroContent.length > 0 && !isMobileDevice) {
+          if (
+            tvBox &&
+            tvBoxSection &&
+            heroContent.length > 0 &&
+            !isMobileDevice
+          ) {
             console.log("Setting up GSAP animations...");
 
             // Create a timeline for the TV Box zoom sequence
@@ -122,9 +127,11 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
           const featuredSection = document.querySelector(
             '[data-section="featured"]'
           );
-          const featureCards = document.querySelectorAll("[data-feature-index]");
+          const featureCards = document.querySelectorAll(
+            "[data-feature-index]"
+          );
           const featuredContent = document.querySelector(
-            '[data-featured-content]'
+            "[data-featured-content]"
           );
 
           if (featuredSection && featureCards.length > 0 && !isMobileDevice) {
@@ -142,7 +149,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
                 },
                 opacity: 0,
                 y: 50,
-                
+
                 duration: 0.8,
               });
             }
@@ -170,7 +177,8 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
                   typeof window !== "undefined" &&
                   (window as any).setFeaturedActiveFeature
                 ) {
-                  const currentActive = (window as any).__currentFeaturedIndex || 0;
+                  const currentActive =
+                    (window as any).__currentFeaturedIndex || 0;
                   if (currentActive !== activeIndex) {
                     (window as any).__currentFeaturedIndex = activeIndex;
                     (window as any).setFeaturedActiveFeature(activeIndex);
@@ -202,10 +210,18 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
           const platformsSection = document.querySelector(
             '[data-section="platforms"]'
           );
-          const platformsHeader = document.querySelector("[data-platforms-header]");
-          const platformsTitle = document.querySelector("[data-platforms-title]");
-          const platformsSubtitle = document.querySelector("[data-platforms-subtitle]");
-          const platformCards = document.querySelectorAll("[data-platform-card]");
+          const platformsHeader = document.querySelector(
+            "[data-platforms-header]"
+          );
+          const platformsTitle = document.querySelector(
+            "[data-platforms-title]"
+          );
+          const platformsSubtitle = document.querySelector(
+            "[data-platforms-subtitle]"
+          );
+          const platformCards = document.querySelectorAll(
+            "[data-platform-card]"
+          );
           const platformsCta = document.querySelector("[data-platforms-cta]");
 
           if (platformsSection && !isMobileDevice) {
@@ -243,7 +259,9 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
               platformCards.forEach((card, index) => {
                 const icon = card.querySelector("[data-platform-icon]");
                 const name = card.querySelector("[data-platform-name]");
-                const description = card.querySelector("[data-platform-description]");
+                const description = card.querySelector(
+                  "[data-platform-description]"
+                );
                 const badge = card.querySelector("[data-platform-badge]");
 
                 // Main card animation - appears and disappears with scroll
@@ -335,7 +353,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
                     {
                       scrollTrigger: {
                         trigger: card,
-                        start: "top 85%",
+                        start: "top center",
                         end: "top 25%",
                         scrub: 1.5,
                         toggleActions: "play reverse play reverse",
@@ -360,7 +378,7 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
                     {
                       scrollTrigger: {
                         trigger: card,
-                        start: "top 85%",
+                        start: "top center",
                         end: "top 25%",
                         scrub: 1.5,
                         toggleActions: "play reverse play reverse",
@@ -394,15 +412,23 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
           }
 
           // Footer Section animations - reduced on mobile
-          const footerSection = document.querySelector('[data-section="footer"]');
+          const footerSection = document.querySelector(
+            '[data-section="footer"]'
+          );
           const footerHeader = document.querySelector("[data-footer-header]");
           const footerLogo = document.querySelector("[data-footer-logo]");
-          const footerDescription = document.querySelector("[data-footer-description]");
+          const footerDescription = document.querySelector(
+            "[data-footer-description]"
+          );
           const footerSocial = document.querySelector("[data-footer-social]");
           const socialLinks = document.querySelectorAll("[data-social-link]");
           const footerLinks = document.querySelector("[data-footer-links]");
-          const footerCategories = document.querySelectorAll("[data-footer-category]");
-          const footerNewsletter = document.querySelector("[data-footer-newsletter]");
+          const footerCategories = document.querySelectorAll(
+            "[data-footer-category]"
+          );
+          const footerNewsletter = document.querySelector(
+            "[data-footer-newsletter]"
+          );
           const footerBottom = document.querySelector("[data-footer-bottom]");
 
           if (footerSection && !isMobileDevice) {
@@ -520,10 +546,11 @@ const ScrollAnimationWrapper = ({ children }: ScrollAnimationWrapperProps) => {
               });
             }
 
-           
             // Animate bottom section
             if (footerBottom) {
-              const copyright = document.querySelector("[data-footer-copyright]");
+              const copyright = document.querySelector(
+                "[data-footer-copyright]"
+              );
               const meta = document.querySelector("[data-footer-meta]");
 
               gsap.from(footerBottom, {

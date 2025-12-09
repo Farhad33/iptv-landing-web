@@ -15,41 +15,7 @@ export const HERO_CONTENT = {
   ],
 } as const;
 
-export const PLATFORMS = [
-  {
-    name: "Apple TV",
-    description: "Optimized for the big screen experience",
-    icon: "mdi:apple",
-    available: true,
-    downloadUrl: "/download/appletv",
-    features: ["4K Streaming", "Remote Control Support", "Siri Integration"],
-  },
-  {
-    name: "iOS",
-    description: "Stream anywhere on your iPhone or iPad",
-    icon: "mdi:apple-ios",
-    available: true,
-    downloadUrl: "/download/ios",
-    features: ["AirPlay Support", "Picture in Picture", "Handoff"],
-  },
-  {
-    name: "Android",
-    description: "Available for all Android devices",
-    icon: "mdi:android",
-    available: true,
-    downloadUrl: "/download/android",
-    features: ["Chromecast Support", "Android TV Ready", "Split Screen"],
-  },
-  {
-    name: "Web",
-    description: "Coming soon to your browser",
-    icon: "mdi:web",
-    available: false,
-    downloadUrl: "#",
-    features: ["Cross-Platform", "No Installation", "Cloud Sync"],
-  },
-] as const;
-
+ 
 export const STATS = [
   {
     value: "100K+",

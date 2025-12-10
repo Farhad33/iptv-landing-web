@@ -9,6 +9,7 @@ import {
   ORGANIZATION_SCHEMA,
   SOFTWARE_APPLICATION_SCHEMA,
   WEBSITE_SCHEMA,
+  TEST_MODE,
 } from "@/lib/constants";
 
 const geistSans = Geist({
@@ -50,11 +51,20 @@ export const metadata: Metadata = {
   keywords: [...SITE_CONFIG.keywords],
   
   // Robots
-  robots: {
-    index: TECHNICAL_SEO.robots.index,
-    follow: TECHNICAL_SEO.robots.follow,
-    googleBot: TECHNICAL_SEO.robots.googleBot,
-  },
+  robots: TEST_MODE
+    ? {
+        index: false,
+        follow: false,
+        googleBot: {
+          index: false,
+          follow: false,
+        },
+      }
+    : {
+        index: TECHNICAL_SEO.robots.index,
+        follow: TECHNICAL_SEO.robots.follow,
+        googleBot: TECHNICAL_SEO.robots.googleBot,
+      },
 
   // Open Graph
   openGraph: {

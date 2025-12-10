@@ -1,5 +1,8 @@
 // SEO Constants for Zebra IPTV Landing Page
 
+// 🔧 Test Mode - Set to true to prevent search engine indexing
+export const TEST_MODE = true; // Change to false when ready for production
+
 export const SITE_CONFIG = {
   name: "Zebra IPTV",
   title: "Zebra IPTV - Watch Smarter, Stream Freely | Best IPTV Player 2025",

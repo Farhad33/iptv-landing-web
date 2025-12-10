@@ -1,7 +1,12 @@
 import { MetadataRoute } from 'next';
-import { SITE_CONFIG } from '@/lib/constants';
+import { SITE_CONFIG, TEST_MODE } from '@/lib/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Return empty sitemap in test mode
+  if (TEST_MODE) {
+    return [];
+  }
+
   const baseUrl = SITE_CONFIG.url;
   const currentDate = new Date();
 

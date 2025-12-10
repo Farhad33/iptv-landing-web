@@ -25,7 +25,7 @@ export function generatePageMetadata({
   return {
     title,
     description,
-    keywords: keywords || SITE_CONFIG.keywords,
+    keywords: keywords || Array.from(SITE_CONFIG.keywords),
     alternates: {
       canonical: url,
     },
@@ -145,6 +145,7 @@ export function generateProductSchema({
   ratingValue?: string;
   reviewCount?: string;
 }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const schema: any = {
     "@context": "https://schema.org",
     "@type": "Product",
